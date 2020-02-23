@@ -6,11 +6,21 @@ console.log("Hello World!");
 // a fetch request is used to access data from an API (application programming interface)
 
 // for example, to get the top 10 most liked videos, you can use the following code:
-const url = "http://www.girlsintech.co.uk/api/top10?category=likes";
+const url = "http://www.girlsintech.co.uk/api/top10?category=views";
 
-fetch(url).then(response => response.json()).then(data => {
-    createCarousel(data.result);
-});
+function getVideos(type){
+    var url = "";
+    if(type === "views"){
+        url = "http://www.girlsintech.co.uk/api/top10?category=views";
+    } else if (type === "likes") {
+        url = "http://www.girlsintech.co.uk/api/top10?category=likes";
+    }
+    fetch(url).then(response => response.json()).then(data => {
+        createCarousel(data.result);
+    });
+}
+
+
 
 function createCarousel(data) {
     const videos = data.map((v, index) => ({
